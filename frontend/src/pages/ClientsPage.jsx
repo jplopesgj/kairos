@@ -1,0 +1,15 @@
+import { useState } from 'react'
+import { Check, Pencil, Plus, Trash2 } from 'lucide-react'
+import { EmptyState } from '../components/common/EmptyState'
+import { Field } from '../components/common/Field'
+import { emptyClient } from '../lib/formDefaults'
+
+export function ClientsPage({ clients, onCreate, onUpdate, onDelete }) {
+  const [form, setForm] = useState(emptyClient())
+  const [editing, setEditing] = useState(null)
+  const submit = (event) => { event.preventDefault(); Promise.resolve(editing ? onUpdate(editing.id, form) : onCreate(form)).then((success) => { if (success) { setForm(emptyClient()); setEditing(null) } }) }
+  const edit = (client) => { setEditing(client); setForm({ name: client.name, email: client.email || '', notes: client.notes || '' }) }
+  const cancel = () => { setEditing(null); setForm(emptyClient()) }
+  const remove = (client) => { if (window.confirm(`Excluir o cliente “${client.name}”? Esta ação não pode ser desfeita.`)) onDelete(client.id) }
+  return <div className="page"><div className="page-heading compact"><div><p className="eyebrow">ORGANIZAÇÃO</p><h1>Clientes</h1><p className="subtitle">Tenha todos os seus trabalhos no lugar certo.</p></div></div><div className="content-grid"><section className="panel form-panel"><div className="panel-heading"><div><h2>{editing ? 'Editar cliente' : 'Novo cliente'}</h2><p>{editing ? 'Atualize as informações do cliente.' : 'Um nome já é suficiente para começar.'}</p></div>{editing && <button className="text-button" type="button" onClick={cancel}>Cancelar</button>}</div><form className="stack-form" onSubmit={submit}><Field label="Nome"><input required value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Ex.: Empresa Acme" /></Field><Field label="E-mail"><input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} placeholder="contato@empresa.com" /></Field><Field label="Observações"><textarea rows="3" value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} /></Field><button className="primary-button" type="submit">{editing ? <><Check size={17} /> Salvar alterações</> : <><Plus size={17} /> Criar cliente</>}</button></form></section><section className="panel"><div className="panel-heading"><div><h2>Seus clientes</h2><p>{clients.length} cliente(s) cadastrado(s)</p></div></div><div className="cards-list">{clients.map((client) => <div className="client-card" key={client.id}><div className="avatar">{client.name.charAt(0).toUpperCase()}</div><div><strong>{client.name}</strong><span>{client.email || 'Sem e-mail'} · {client.projects_count || 0} projeto(s)</span></div><button className="mini-action" onClick={() => edit(client)} aria-label={`Editar ${client.name}`} title="Editar cliente"><Pencil size={15} /></button><button className="mini-action danger" onClick={() => remove(client)} aria-label={`Excluir ${client.name}`} title="Excluir cliente"><Trash2 size={15} /></button></div>)}{!clients.length && <EmptyState text="Cadastre seu primeiro cliente." />}</div></section></div></div>
+}

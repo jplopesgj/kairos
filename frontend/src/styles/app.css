@@ -9,7 +9,8 @@ button { cursor: pointer; }
 .app-shell { display: flex; min-height: 100vh; }
 .sidebar { background: #102a32; color: #b1c1c5; width: 248px; padding: 28px 16px 20px; display: flex; flex-direction: column; flex-shrink: 0; }
 .brand { align-items: center; display: flex; gap: 10px; color: #f6fbfb; font: 700 21px 'Space Grotesk'; letter-spacing: -.7px; padding: 0 12px 48px; }
-.brand > span > span { color: #52c1af; }
+.brand-name { align-items: center; display: inline-flex; gap: 1px; }
+.brand-name svg { color: #52c1af; margin: 0 1px; }
 .brand-mark { align-items: center; background: #168d83; border-radius: 9px; color: #fff; display: flex; height: 34px; justify-content: center; width: 34px; }
 .side-label { color: #718b91; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; margin: 0 12px 12px; text-transform: uppercase; }
 .nav-item { align-items: center; background: transparent; border: 0; border-radius: 8px; color: #abc0c3; display: flex; font-size: 14px; gap: 13px; margin-bottom: 4px; padding: 12px; position: relative; text-align: left; width: 100%; }
@@ -39,3 +40,4 @@ h1, h2, p { margin-top: 0; }.page h1 { color: #173139; font: 700 32px 'Space Gro
 .spin { animation: spin 1s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }
 @media (max-width: 1050px) { .sidebar { width: 210px; }.entry-form { grid-template-columns: repeat(3, 1fr); }.entry-form .wide { grid-column: span 2; }.content-grid { grid-template-columns: 1fr; } }
 @media (max-width: 700px) { .sidebar { display: none; }.mobile-menu { display: flex; }.topbar { height: 60px; padding: 0 18px; }.breadcrumb { margin-right: auto; padding-left: 12px; }.page { padding: 30px 16px 50px; }.page-heading { align-items: flex-start; flex-direction: column; gap: 19px; }.page h1 { font-size: 28px; }.timer-card { align-items: flex-start; flex-direction: column; gap: 25px; padding: 23px; }.timer-card:after { right: -70px; }.timer-card select { width: 100%; }.timer-action { align-self: stretch; justify-content: space-between; }.stat-grid { grid-template-columns: 1fr; }.stat-card { padding: 15px; }.entry-form { grid-template-columns: 1fr 1fr; }.entry-form .field:first-child, .entry-form .wide { grid-column: span 2; }.entry-form .primary-button { grid-column: span 2; }.period-tabs button { padding: 8px 9px; }.summary-name { width: 105px; }.summary-bar { display: none; }.panel { padding: 18px 15px; }.toast { left: 18px; right: 18px; top: 70px; } }
+.project-delete { margin-left: 4px; }.description-cell { max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
