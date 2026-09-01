@@ -2,15 +2,15 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: freela_hours
-      POSTGRES_USER: freela
-      POSTGRES_PASSWORD: freela
+      POSTGRES_DB: kairos
+      POSTGRES_USER: jj_kairos
+      POSTGRES_PASSWORD: jjdev
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U freela -d freela_hours"]
+      test: ["CMD-SHELL", "pg_isready -U jj_kairos -d kairos"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -26,12 +26,15 @@ services:
       DB_CONNECTION: pgsql
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_DATABASE: freela_hours
-      DB_USERNAME: freela
-      DB_PASSWORD: freela
+      DB_DATABASE: kairos
+      DB_USERNAME: jj_kairos
+      DB_PASSWORD: jjdev
       FRONTEND_URL: http://localhost:5173
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/var/www/html
+      - api_vendor:/var/www/html/vendor
     depends_on:
       postgres:
         condition: service_healthy
@@ -42,8 +45,15 @@ services:
       - "5173:5173"
     environment:
       VITE_API_URL: http://localhost:8000/api
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
     depends_on:
       - api
 
 volumes:
   postgres_data:
+  api_vendor:
+  frontend_node_modules:
