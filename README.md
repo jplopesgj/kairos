@@ -2,6 +2,16 @@
 
 Controle local de horas trabalhadas para freelancers.
 
+## Padronização do frontend
+
+O frontend utiliza ESLint para manter o código consistente entre colaboradores:
+
+```bash
+cd frontend
+npm run lint       # verifica problemas
+npm run lint:fix   # corrige problemas automaticamente quando possível
+```
+
 ## Executar com Docker
 
 ```bash
